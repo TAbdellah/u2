@@ -448,7 +448,7 @@
                         <p style="margin-bottom: 10px;"><strong>1️⃣ Message au prof</strong> → Envoyez "Bonjour prof !"</p>
                         <p style="margin-bottom: 10px;"><strong>2️⃣ Message au voisin</strong> → Discutez avec le binôme d'à côté</p>
                         <p style="margin-bottom: 10px;"><strong>3️⃣ Message à tous</strong> → Trouvez comment envoyer à toute la classe</p>
-                        <p style="margin-bottom: 10px;"><strong>4️⃣ Envoyer un fichier</strong> → Partagez message.txt via le chat</p>
+                        <p style="margin-bottom: 10px;"><strong>4️⃣ Envoyer un fichier</strong> → Partagez une image d'un equipement réseau via le chat</p>
                         <p style="margin-bottom: 10px;"><strong>5️⃣ Changer votre statut</strong> → Cherchez : Disponible, Occupé, Absent...</p>
                         <p style="margin-bottom: 10px;"><strong>6️⃣ Voir l'historique</strong> → Retrouvez vos anciens messages</p>
                     </div>
@@ -546,72 +546,72 @@
             </div>
         </div>
 
-        <!-- ÉVALUATION -->
+    <!-- ÉVALUATION -->
         <div class="evaluation">
             <h3>📊 Évaluation des compétences</h3>
             <table>
                 <thead>
                     <tr>
                         <th>Compétences</th>
-                        <th>✅ Acquis</th>
-                        <th>🔄 En cours</th>
-                        <th>❌ À revoir</th>
+                        <th class="checkbox-cell">✅ Acquis</th>
+                        <th class="checkbox-cell">🔄 En cours</th>
+                        <th class="checkbox-cell">❌ À revoir</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><strong>SAVOIR : </strong>Identifier adresse IP</td>
-                        <td>☐</td>
-                        <td>☐</td>
-                        <td>☐</td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
                     </tr>
                     <tr>
                         <td><strong>SAVOIR : </strong>Comprendre avantages réseau</td>
-                        <td>☐</td>
-                        <td>☐</td>
-                        <td>☐</td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
                     </tr>
                     <tr>
                         <td><strong>SAVOIR-FAIRE : </strong>Explorer le réseau</td>
-                        <td>☐</td>
-                        <td>☐</td>
-                        <td>☐</td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
                     </tr>
                     <tr>
                         <td><strong>SAVOIR-FAIRE : </strong>Partager un dossier</td>
-                        <td>☐</td>
-                        <td>☐</td>
-                        <td>☐</td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
                     </tr>
                     <tr>
                         <td><strong>SAVOIR-FAIRE : </strong>Accéder ressource partagée</td>
-                        <td>☐</td>
-                        <td>☐</td>
-                        <td>☐</td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
                     </tr>
                     <tr>
                         <td><strong>SAVOIR-FAIRE : </strong>Transférer fichiers</td>
-                        <td>☐</td>
-                        <td>☐</td>
-                        <td>☐</td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
                     </tr>
                     <tr>
                         <td><strong>SAVOIR-FAIRE : </strong>Communiquer via réseau</td>
-                        <td>☐</td>
-                        <td>☐</td>
-                        <td>☐</td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
                     </tr>
                     <tr>
                         <td><strong>SAVOIR-ÊTRE : </strong>Collaboration</td>
-                        <td>☐</td>
-                        <td>☐</td>
-                        <td>☐</td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
                     </tr>
                     <tr>
                         <td><strong>SAVOIR-ÊTRE : </strong>Respect des ressources</td>
-                        <td>☐</td>
-                        <td>☐</td>
-                        <td>☐</td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
                     </tr>
                 </tbody>
             </table>
@@ -630,6 +630,27 @@
                 • Réfléchir : Quelle différence entre réseau local et Internet ?
             </div>
         </div>
+    </div>
+
+    <script>
+        // Gérer les cases à cocher (une seule par ligne)
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const row = this.closest('tr');
+                const rowCheckboxes = row.querySelectorAll('input[type="checkbox"]');
+                
+                if (this.checked) {
+                    rowCheckboxes.forEach(cb => {
+                        if (cb !== this) {
+                            cb.checked = false;
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 
         <!-- FOOTER -->
     <div class="footer">

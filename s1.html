@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Échange d'informations dans un réseau local (LAN)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fff9e6 0%, #ffe6f0 25%, #e6f3ff 50%, #f0e6ff 75%, #fff9e6 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #FFC107 0%, #FF9800 100%);
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            border-left: 5px solid #667eea;
+            padding-left: 25px;
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-number {
+            background: #667eea;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .situation-probleme {
+            background: #FFF3E0;
+            border: 3px solid #FF9800;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .situation-probleme h3 {
+            color: #E65100;
+            margin-bottom: 15px;
+            font-size: larger;
+        }
+
+        .situation-probleme p {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: larger;
+        }
+
+        .question-box {
+            background: #E8D5FF;
+            border-left: 4px solid #764ba2;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+
+        .question-box strong {
+            color: #764ba2;
+        }
+
+        .steps {
+            background: #E3F2FD;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .step {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #2196F3;
+        }
+
+        .step-title {
+            font-weight: bold;
+            color: #1976D2;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-number {
+            background: #2196F3;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .step-content {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            background: #FFF59D;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        .info-box {
+            background: #C8E6C9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .info-box strong {
+            color: #2E7D32;
+        }
+
+        .objectifs {
+            background: #F3E5F5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .objectifs h3 {
+            color: #6A1B9A;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .objectifs ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .objectifs li {
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #555;
+        }
+
+        .objectifs li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #6A1B9A;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .command {
+            background: #263238;
+            color: #00FF41;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+            border-left: 4px solid #00FF41;
+        }
+
+        .path {
+            background: #F5F5F5;
+            border: 1px solid #DDD;
+            padding: 10px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            margin: 8px 0;
+        }
+
+        .image-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 15px 0;
+        }
+
+        .image-caption {
+            font-size: 0.95em;
+            color: #666;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        .footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            border-top: 1px solid #ddd;
+        }
+
+        .travail-section {
+            background: #FCE4EC;
+            border: 2px solid #E91E63;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .travail-section h4 {
+            color: #C2185B;
+            margin-bottom: 15px;
+            font-size: 1.15em;
+        }
+
+        .deux-colonnes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .section {
+                padding-left: 15px;
+                border-left: 3px solid #667eea;
+            }
+
+            .deux-colonnes {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* FOOTER */
+    .footer {
+      /* background:linear-gradient(135deg, #667eea, #764ba2); */
+      color: #000;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      margin-top: 60px;
+      box-shadow: 0 10px 40px rgba(102, 126, 234, 0.2)
+    }
+
+    .footer-content {
+      font-size: 14px;
+      line-height: 1.8;
+      font-weight: 600;
+      margin-bottom: 15px
+    }
+
+    .footer-author {
+      font-size: 13px;
+      color: #000;
+      margin-top: 15px;
+      font-weight: 700
+    }
+
+    .footer-heart {
+      color: #ff6b9d;
+      animation: heartbeat 1.5s ease infinite
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Unité 2 : Échange d'informations - Séance 1</h1>
+            <p>Échange d'informations dans un réseau local (LAN)</p>
+        </div>
+
+        <div class="content">               
+            <div class="image-container">
+            <img src="https://i.imgur.com/YawLycp.png" alt=" Échange d'informations en réseau local" style="text-align: center; width: 100%; max-width: 600px; border-radius: 8px; margin: 15px 0;">
+            </div> 
+            <!-- SITUATION PROBLÈME -->
+            <div class="situation-probleme">
+                <h3>🎯 Situation Problème</h3>
+                <p>
+                    Vous êtes en salle informatique avec 14 ordinateurs connectés au réseau local WiFi.
+                    L'enseignant souhaite partager un fichier avec toute la classe.
+                    Cependant, il n'a pas le temps de copier le fichier sur chaque ordinateur manuellement en utilisant
+                    une clé USB.
+                </p>
+                <p>
+                    <strong>Décision :</strong> Utiliser le réseau local WiFi pour partager le fichier.
+                    Chaque ordinateur doit accéder au fichier en utilisant l'adresse IP de l'ordinateur du professeur.
+                </p>
+                <div class="question-box">
+                    <strong>❓ Questions à résoudre :</strong>
+                    <p style="margin-top: 10px;">1. Comment utiliser l'adresse IP pour identifier l'ordinateur du
+                        professeur sur le réseau local et accéder au fichier partagé ?</p>
+                    <p>2. Comment configurer un dossier partagé sur Windows et définir les droits d'accès pour sécuriser
+                        les fichiers partagés ?</p>
+                </div>
+            </div>
+
+            <!-- OBJECTIFS -->
+            <div class="objectifs">
+                <h3>📚 Objectifs du cours</h3>
+                <ul>
+                    <li>Comprendre l'adresse IP et le nom de machine</li>
+                    <li>Configurer le partage de fichiers et de dossiers sous Windows</li>
+                    <li>Gérer les droits d'accès aux ressources partagées</li>
+                    <li>Savoir accéder à un dossier/fichier dans le réseau local</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 1 : L'ADRESSE IP -->
+            <div class="section">
+                <h2>
+                    <span class="section-number">1</span>
+                    L'adresse IP et le nom de machine
+                </h2>
+
+                <h3 style="color: #555; margin: 20px 0 15px 0; font-size: 1.3em;">Qu'est-ce qu'une adresse IP ?</h3>
+                <p style="margin-bottom: 15px;">
+                    L'adresse IP est un numéro unique qui identifie chaque ordinateur connecté à un réseau.
+                    Elle permet aux appareils de communiquer entre eux sur le réseau local WiFi.
+                </p>
+
+                <div class="info-box">
+                    <strong>💡 Format :</strong> L'adresse IP se présente sous la forme : <span
+                        class="highlight">192.168.1.5</span>
+                    <br>Elle contient 4 groupes de nombres séparés par des points (de 0 à 255).
+                </div>
+
+                <h3 style="color: #555; margin: 20px 0 15px 0; font-size: 1.3em;">Comment trouver votre adresse IP ?
+                </h3>
+
+                <!-- <div class="deux-colonnes">
+                    <div>
+                        <div class="steps">
+                            <div class="step">
+                                <div class="step-title">
+                                    <span class="step-number">1</span>
+                                    Ouvrir l'invite de commande
+                                </div>
+                                <div class="step-content">
+                                    Appuyez sur les touches <span class="highlight">Windows + R</span>
+                                </div>
+                            </div>
+
+                            <div class="step">
+                                <div class="step-title">
+                                    <span class="step-number">2</span>
+                                    Taper la commande
+                                </div>
+                                <div class="step-content">
+                                    Écrivez : <div class="command">cmd</div>
+                                </div>
+                            </div>
+
+                            <div class="step">
+                                <div class="step-title">
+                                    <span class="step-number">3</span>
+                                    Exécuter la configuration
+                                </div>
+                                <div class="step-content">
+                                    Dans la fenêtre noire, tapez : <div class="command">ipconfig</div>
+                                    Vous verrez votre adresse IP
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                <div>
+                    <div class="image-container">
+                        <img src="https://i.imgur.com/7fsnRmF.png" alt="Commandes Windows">
+                    </div>
+                    <div class="image-container">
+                        <img src="https://i.imgur.com/SkZpE27.png" alt="Commandes Windows">
+                    </div>
+                    <div class="image-container">
+                        <img src="https://i.imgur.com/5SlTAth.png" alt="Commandes Windows">
+                    </div>
+                </div>
+                <!-- </div> -->
+
+                <div class="info-box">
+                    <strong>📌 À retenir :</strong> Notez bien votre adresse IP, vous en aurez besoin pour partager vos
+                    fichiers !
+                    Exemple : <span class="highlight">192.168.17.125</span> (adresse du professeur)
+                </div>
+            </div>
+
+            <!-- SECTION 2 : CONFIGURER UN DOSSIER PARTAGÉ -->
+            <div class="section">
+                <h2>
+                    <span class="section-number">2</span>
+                    Configurer un dossier partagé sur Windows
+                </h2>
+
+                <p style="margin-bottom: 20px;">
+                    Suivez ces étapes pour transformer un dossier ordinaire en dossier accessible par tous les
+                    utilisateurs du réseau.
+                </p>
+
+                <div class="image-container">
+                    <img src="https://i.imgur.com/lQdcOyX.png" alt="Configuration partage Windows">
+                    <div class="image-caption">Interface de partage Windows - Configurer les propriétés d'un dossier
+                    </div>
+                </div>
+
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-title">
+                            <span class="step-number">1</span>
+                            Créer ou sélectionner un dossier
+                        </div>
+                        <div class="step-content">
+                            Créez un nouveau dossier ou sélectionnez celui que vous souhaitez partager.
+                            <br><strong>Exemple :</strong> Dossier nommé "Partage"
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-title">
+                            <span class="step-number">2</span>
+                            Clic droit et accéder aux propriétés
+                        </div>
+                        <div class="step-content">
+                            <strong>Clic droit</strong> sur le dossier → <span class="highlight">Propriétés</span> →
+                            <span class="highlight">Partage</span> → <span class="highlight">Partager...</span>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-title">
+                            <span class="step-number">3</span>
+                            Configurer les permissions
+                        </div>
+                        <div class="step-content">
+                            <strong>Ajoutez "Tout le monde"</strong> pour donner accès à tous les utilisateurs du
+                            réseau.
+                            <br><br>
+                            Définissez les permissions :
+                            <ul style="margin-top: 10px; margin-left: 20px;">
+                                <li><span class="highlight">Lecture seule</span> : Consulter mais pas modifier (idéal
+                                    pour les fichiers du professeur)</li>
+                                <li><span class="highlight">Lecture/Écriture</span> : Consulter et modifier</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-title">
+                            <span class="step-number">4</span>
+                            Appliquer et terminer
+                        </div>
+                        <div class="step-content">
+                            Cliquez sur <span class="highlight">Appliquer</span> puis <span class="highlight">OK</span>
+                            <br>✅ Votre dossier est maintenant partagé sur le réseau !
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong>🔒 Conseil de sécurité :</strong> Si vous ne voulez pas que les utilisateurs modifient les
+                    fichiers,
+                    privilégiez la permission <span class="highlight">Lecture seule</span>.
+                </div>
+            </div>
+
+            <!-- SECTION 3 : ACCÉDER À UN DOSSIER PARTAGÉ -->
+            <div class="section">
+                <h2>
+                    <span class="section-number">3</span>
+                    Accéder à un dossier partagé du réseau
+                </h2>
+
+                <p style="margin-bottom: 20px;">
+                    Maintenant que vous connaissez l'adresse IP du professeur, voici comment accéder à son dossier
+                    partagé.
+                </p>
+
+                <!-- <div class="deux-colonnes"> -->
+                <div>
+                    <div class="image-container">
+                        <img src="https://i.imgur.com/G6lH3SQ.png" alt="Accès au dossier partagé">
+                        <div class="image-caption">Utilisation du chemin réseau pour accéder au dossier partagé
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-title">
+                                <span class="step-number">1</span>
+                                Ouvrir l'explorateur (Run)
+                            </div>
+                            <div class="step-content">
+                                Appuyez sur <span class="highlight">Windows + R</span>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-title">
+                                <span class="step-number">2</span>
+                                Entrer le chemin réseau
+                            </div>
+                            <div class="step-content">
+                                Tapez le chemin d'accès au dossier partagé :
+                                <div class="path">\\192.168.17.125</div>
+                                <br>
+                                <strong>Remplacez :</strong>
+                                <ul style="margin-top: 10px; margin-left: 20px; font-size: 0.95em;">
+                                    <li><span class="highlight">192.168.17.125</span> par l'IP du professeur</li>
+                                    <li><span class="highlight">Partage</span> par le nom du dossier</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-title">
+                                <span class="step-number">3</span>
+                                Valider et accéder
+                            </div>
+                            <div class="step-content">
+                                Cliquez sur <span class="highlight">OK</span>
+                                <br>✅ Le dossier du professeur s'ouvre ! Vous pouvez télécharger les fichiers.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- </div> -->
+
+                <div class="info-box">
+                    <strong>✅ Résultat :</strong> Vous avez accédé au dossier partagé grâce à l'adresse IP !
+                </div>
+            </div>
+
+            <!-- SECTION 4 : TRAVAUX PRATIQUES -->
+            <div class="section">
+                <h2>
+                    <span class="section-number">4</span>
+                    Travaux pratiques
+                </h2>
+
+                <div class="travail-section">
+                    <h4>📥 Travail 1 : Télécharger le fichier du professeur</h4>
+                    <div style="margin-top: 15px;">
+                        <strong>Objectif :</strong> Chaque élève doit télécharger une image depuis le dossier partagé du
+                        professeur.
+                        <div style="margin-top: 15px; background: white; padding: 15px; border-radius: 5px;">
+                            <div style="font-weight: bold; color: #1976D2; margin-bottom: 15px;">Étapes :</div>
+                            <div style="margin-left: 0;">
+                                <div style="margin-bottom: 12px;"><strong>1.</strong> Ouvrez l'explorateur avec <span
+                                        class="highlight">Windows + R</span></div>
+                                <div style="margin-bottom: 12px;"><strong>2.</strong> Tapez le chemin : <div
+                                        class="path">\\192.168.1.125\Partage</div>
+                                </div>
+                                <div style="margin-bottom: 12px;"><strong>3.</strong> Trouvez l'image partagée par le
+                                    professeur</div>
+                                <div><strong>4.</strong> Téléchargez-la : clic droit → Copier → Coller dans votre
+                                    dossier</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="travail-section">
+                    <h4>📤 Travail 2 : Partager votre propre dossier et communiquer l'adresse au tableau blanc</h4>
+                    <div style="margin-top: 15px;">
+                        <strong>Objectif :</strong> Partager un dossier personnel et communiquer vos informations à la
+                        classe.
+                        <div style="margin-top: 15px; background: white; padding: 15px; border-radius: 5px;">
+                            <div style="font-weight: bold; color: #1976D2; margin-bottom: 15px;">Étapes :</div>
+                            <div style="margin-left: 0;">
+                                <div style="margin-bottom: 12px;"><strong>1.</strong> Trouvez votre adresse IP avec
+                                    <span class="highlight">ipconfig</span>
+                                </div>
+                                <div style="margin-bottom: 12px;"><strong>2.</strong> Créez un dossier nommé
+                                    "MonPartage"</div>
+                                <div style="margin-bottom: 12px;"><strong>3.</strong> Partagez ce dossier : clic droit →
+                                    Propriétés → Partage</div>
+                                <div style="margin-bottom: 12px;"><strong>4.</strong> Donnez les permissions <span
+                                        class="highlight">Lecture/Écriture</span></div>
+                                <div style="margin-bottom: 12px;"><strong>5.</strong> Écrivez votre chemin au tableau blanc
+                                    pour les autres élèves :</div>
+                                <div class="path" style="background: #FFF9C4; font-size: 1.1em; font-weight: bold;">
+                                    \\[Votre IP]\MonPartage
+                                </div>
+                                <div style="margin-top: 12px;"><strong>6.</strong> Les autres élèves accèdent à votre
+                                    dossier en utilisant ce chemin</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 5 : RÉSUMÉ -->
+            <div class="section">
+                <h2>
+                    <span class="section-number">5</span>
+                    Résumé - Points clés à retenir
+                </h2>
+
+                <div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
+                    <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 2px solid #4CAF50;">
+                        <strong style="color: #2E7D32; font-size: 1.1em;">✓ Adresse IP</strong>
+                        <p style="margin-top: 8px; color: #555;">Identifie chaque ordinateur sur le réseau. Format :
+                            192.168.1.5</p>
+                    </div>
+
+                    <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 2px solid #4CAF50;">
+                        <strong style="color: #2E7D32; font-size: 1.1em;">✓ Trouver son IP</strong>
+                        <p style="margin-top: 8px; color: #555;">Windows + R → cmd → <span
+                                class="highlight">ipconfig</span></p>
+                    </div>
+
+                    <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 2px solid #4CAF50;">
+                        <strong style="color: #2E7D32; font-size: 1.1em;">✓ Partager un dossier</strong>
+                        <p style="margin-top: 8px; color: #555;">Clic droit → Propriétés → Partage → Ajouter "Tout le
+                            monde" → Définir permissions</p>
+                    </div>
+
+                    <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 2px solid #4CAF50;">
+                        <strong style="color: #2E7D32; font-size: 1.1em;">✓ Accéder à un dossier partagé</strong>
+                        <p style="margin-top: 8px; color: #555;">Windows + R → <span class="highlight">\\[IP]\[Nom du
+                                dossier]</span></p>
+                    </div>
+
+                    <div>
+                        <strong style="color: #2E7D32; font-size: 1.1em;">✓ Droits d'accès</strong>
+                        <p style="margin-top: 8px; color: #555;">
+                            <span class="highlight">Lecture seule</span> = consultation uniquement |
+                            <span class="highlight">Lecture/Écriture</span> = consultation + modification
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-content">
+        <strong>© 2025-2026 Tous droits réservés</strong><br>
+        Académie Régionale de l'Éducation et de la Formation – Région Souss Massa<br>
+        Direction Provinciale Inzegane Aït Melloul<br>
+        Collège Othmane Ibn Affane
+      </div>
+      <div class="footer-author">
+        Conception et réalisation : <strong>Abdellah TAHTOH</strong><br>
+        Fait avec <span class="footer-heart">❤</span> au service de l'éducation numérique
+      </div>
+    </div>
+</body>
+
+</html>
+

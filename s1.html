@@ -325,6 +325,32 @@
       color: #ff6b9d;
       animation: heartbeat 1.5s ease infinite
     }
+
+           /* Style pour la vidéo */
+        .video-container {
+            margin: 30px 0;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            text-align: center;
+        }
+
+        .video-container video {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: block;
+            margin: 0 auto;
+        }
     </style>
 </head>
 
@@ -370,6 +396,15 @@
                     <li>Gérer les droits d'accès aux ressources partagées</li>
                     <li>Savoir accéder à un dossier/fichier dans le réseau local</li>
                 </ul>
+            </div>
+
+                        <!-- VIDÉO AJOUTÉE ICI -->
+            <div class="video-container">
+                <h3>🎥 Vidéo explicative</h3>
+                <video controls preload="metadata">
+                    <source src="video.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas la lecture de vidéos HTML5.
+                </video>
             </div>
 
             <!-- SECTION 1 : L'ADRESSE IP -->

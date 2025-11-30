@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echange d’informations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #fff9e6 0%, #ffe6f0 25%, #e6f3ff 50%, #f0e6ff 75%, #fff9e6 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #0b76ef 0%, #1e88e5 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+        
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card h2 {
+            color: #0b76ef;
+            margin-bottom: 1.2rem;
+            font-size: 1.6rem;
+            border-bottom: 3px solid #0b76ef;
+            padding-bottom: 0.8rem;
+        }
+        
+        .card h3 {
+            color: #666;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-size: 1.15rem;
+        }
+        
+        /* SITUATION PROBLÈME */
+        .situation-problem {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.15) 0%, rgba(244, 67, 54, 0.15) 100%);
+            border-left: 5px solid #ff9800;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        
+        .situation-problem h2 {
+            color: #ff6f00;
+            border-bottom: 3px solid #ff6f00;
+        }
+        
+        .problem-text {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid #ff9800;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        
+        .problem-text strong {
+            color: #d84315;
+        }
+        
+        .discovery-section {
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        
+        .discovery-section h2 {
+            color: #2e7d32;
+            border-bottom: 3px solid #4caf50;
+        }
+        
+        .discovery-steps {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .discovery-step {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 8px;
+            border-left: 4px solid #4caf50;
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .discovery-step-num {
+            background: #4caf50;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        
+        .discovery-step-content h4 {
+            color: #2e7d32;
+            margin-bottom: 0.5rem;
+        }
+        
+        .exercise-section {
+            background: #e3f2fd;
+            border-left: 5px solid #2196f3;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        
+        .exercise-section h2 {
+            color: #1565c0;
+            border-bottom: 3px solid #2196f3;
+        }
+        
+        .exercise-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .exercise-box h3 {
+            color: #1565c0;
+            margin-top: 0;
+        }
+        
+        .what-todo {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .what-todo h4 {
+            color: #e65100;
+            margin-bottom: 1rem;
+        }
+        
+        .requirement-list {
+            display: grid;
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+        
+        .requirement-item {
+            background: #f5f5f5;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #2196f3;
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        .requirement-item strong {
+            color: #1565c0;
+            min-width: 120px;
+        }
+        
+        .example-card {
+            background: #f0f9ff;
+            border: 2px solid #0b76ef;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+        
+        .example-card h4 {
+            color: #0b76ef;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .example-item {
+            background: white;
+            padding: 1rem;
+            margin: 0.8rem 0;
+            border-radius: 6px;
+            border-left: 3px solid #0b76ef;
+        }
+        
+        .example-item strong {
+            color: #0b76ef;
+        }
+        
+        .time-badge {
+            /* display: inline-block; */
+            background: #ff6f00;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin: 1rem 0;
+        }
+        
+        .info-box {
+            background: #e8eaf6;
+            border-left: 4px solid #3f51b5;
+            padding: 1.2rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+        }
+        
+        .info-box strong {
+            color: #3f51b5;
+        }
+        
+        .tips {
+            background: #fce4ec;
+            border-left: 4px solid #e91e63;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .tips h4 {
+            color: #c2185b;
+            margin-bottom: 1rem;
+        }
+        
+        .tips ul {
+            margin-left: 1.5rem;
+        }
+        
+        .tips li {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        
+        .summary-box {
+            background: #f3e5f5;
+            border: 2px solid #9c27b0;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+        
+        .summary-box h3 {
+            color: #6a1b9a;
+            margin-top: 0;
+        }
+        
+        ul {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            margin-top: 2rem;
+        }
+        
+        .success-icon {
+            color: #4caf50;
+            font-size: 1.2rem;
+        }
+        
+        .warning-icon {
+            color: #ff9800;
+            font-size: 1.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .card, .situation-problem, .discovery-section, .exercise-section {
+                padding: 1.5rem;
+            }
+            
+            .discovery-step {
+                flex-direction: column;
+            }
+        }
+           /* FOOTER */
+    .footer {
+      /* background:linear-gradient(135deg, #667eea, #764ba2); */
+      color: #000;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      margin-top: 60px;
+      box-shadow: 0 10px 40px rgba(102, 126, 234, 0.2)
+    }
+
+    .footer-content {
+      font-size: 14px;
+      line-height: 1.8;
+      font-weight: 600;
+      margin-bottom: 15px
+    }
+
+    .footer-author {
+      font-size: 13px;
+      color: #000;
+      margin-top: 15px;
+      font-weight: 700
+    }
+
+    .footer-heart {
+      color: #ff6b9d;
+      animation: heartbeat 1.5s ease infinite
+    }
+
+      .video-container {
+            margin: 15px 0;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            max-width: 600px;
+            display: block;
+            margin: 0 auto;
+        }
+
+
+
+
+                .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2196f3 0%, #1565c0 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.05rem;
+            opacity: 0.95;
+        }
+        
+        .section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #2196f3;
+        }
+        
+        h2 {
+            color: #1565c0;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .task-list {
+            display: grid;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .task-item {
+            background: #f5f5f5;
+            padding: 1.2rem;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .task-number {
+            background: #2196f3;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .task-content strong {
+            color: #1565c0;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+        
+        .highlight-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .highlight-box h3 {
+            color: #e65100;
+            margin-bottom: 1rem;
+            margin-top: 0;
+        }
+        
+        .example {
+            background: #f0f9ff;
+            border: 2px solid #2196f3;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .example h3 {
+            color: #1565c0;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .example-content {
+            background: #fff9c4;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 3px solid #fbc02d;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+        }
+        
+        .time-info {
+            background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-top: 2rem;
+        }
+        
+        .info-box {
+            background: #e8eaf6;
+            border-left: 4px solid #3f51b5;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+        
+        .info-box strong {
+            color: #3f51b5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Echange d’informations - séance 2</h1>
+            <p class="subtitle">Envoi / Réception de messages dans un réseau local</p>
+        </header>
+
+        <!-- SITUATION PROBLÈME RÉELLE -->
+        <div class="situation-problem">
+            <h2>⚠️ Situation Problème - Situation réelle</h2>
+            
+            <div class="problem-text">
+                <p><strong>Imagine ceci :</strong></p>
+                <p>Tu es en classe avec 13 autres camarades. Le professeur te demande de partager du contenu avec eux. Mais il y a un problème...</p>
+                <ul style="margin-top: 1rem; margin-bottom: 1rem;">
+                    <li>Pas de connexion Internet disponible en ce moment 🌐❌</li>
+                    <li>Les ordinateurs sont connectés en réseau local seulement</li>
+                    <li>Tu ne peux pas utiliser WhatsApp ou Telegram</li>
+                    <li>Comment faire pour communiquer rapidement avec tes camarades et le prof ?</li>
+                </ul>
+            </div>
+            
+            <div class="problem-text" style="background: #e8f5e9; border-left-color: #4caf50; margin-top: 1rem;">
+                <p style="text-align: center;"><strong>✅ La solution :</strong></p>
+                <img src="https://www.softros.com/img/slm-icon-gray.png" alt="softros" style="display:block; margin:0 auto;">
+                <p><strong>Softros LAN Messenger</strong> - Une application de messagerie qui fonctionne sur le réseau local de votre classe, sans Internet !</p>
+                <p style="margin-top: 1rem; font-style: italic;">C'est comme WhatsApp, mais pour votre réseau scolaire. Vous pouvez envoyer des messages et partager des fichiers instantanément avec tous vos camarades.</p>
+            </div>
+        </div>
+
+        <!-- PHASE DE DÉCOUVERTE -->
+        <div class="discovery-section">
+            <h2>🔍 Phase 1 : Découverte de l'outil (10 minutes)</h2>
+        
+            
+            <div class="info-box" style="margin-top: 1.5rem;">
+                <strong>💡 Info :</strong> Vous avez 10 minutes pour explorer librement. N'hésitez pas à cliquer partout pour comprendre comment ça marche !
+            </div>
+        </div>
+
+        <!-- EXERCICE PRATIQUE -->
+        <!-- <div class="exercise-section">
+            <h2>✏️ Phase 2 : Exercice Pratique (25 minutes)</h2>
+            
+            <div class="exercise-box">
+                <h3>📌 Mission pour chaque poste (14 ordinateurs) / المهمة لكل حاسوب (14 حاسوباً)</h3>
+                
+                <p style="margin: 1rem 0; font-size: 1.05rem;">
+                    <strong>Chaque élève doit / يجب على كل تلميذ:</strong>
+                </p>
+                
+                <div class="what-todo">
+                    <h4>📋 Tâche à accomplir / المهمة المطلوبة</h4>
+                    
+                    <div class="requirement-list">
+                        <div class="requirement-item">
+                            <strong>1️⃣ Trouver 3 images</strong>
+                            <span>Cherchez 3 images différentes sur Google Images<br>
+                            ابحث عن 3 صور مختلفة على صور Google</span>
+                        </div>
+                        
+                        <div class="requirement-item">
+                            <strong>2️⃣ Composant interne (1 image)</strong>
+                            <span>Choisissez 1 image d'un composant INTERNE de l'ordinateur<br>
+                            اختر صورة واحدة من مكونات الحاسوب الداخلية<br>
+                            <em style="color: #0b76ef;">Exemples / أمثلة :</em> CPU • RAM • Disque dur • Carte mère • Carte graphique</span>
+                        </div>
+                        
+                        <div class="requirement-item">
+                            <strong>3️⃣ Équipement réseau (1 image)</strong>
+                            <span>Choisissez 1 image d'un équipement RÉSEAU<br>
+                            اختر صورة واحدة لاجهزة الشبكة<br>
+                            <em style="color: #0b76ef;">Exemples / أمثلة :</em> Routeur • Switch • Modem • Câble réseau • Antenne WiFi</span>
+                        </div>
+                        
+                        <div class="requirement-item">
+                            <strong>4️⃣ Équipement libre (1 image)</strong>
+                            <span>Choisissez 1 image d'un équipement de votre choix (interne ou réseau)<br>
+                            اختر صورة واحدة لأي جهاز أخر من اختيارك</span>
+                        </div>
+                        
+                        <div class="requirement-item">
+                            <strong>5️⃣ Télécharger et organiser</strong>
+                            <span>Mettez les 3 images dans 1 dossier sur votre bureau<br>
+                            ضع الصور الثلاث في مجلد واحد على سطح المكتب</span>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- CE QU'IL FAUT ENVOYER -->
+            <!-- <div class="exercise-box">
+                <h3>📤 Pour chaque image, vous devez envoyer / لكل صورة يجب أن ترسل :</h3>
+                
+                <div class="requirement-list">
+                    <div class="requirement-item">
+                        <strong>1️⃣ L'image</strong>
+                        <span>Une photo claire de l'équipement<br>
+                        صورة واضحة للجهاز</span>
+                    </div>
+                    
+                    <div class="requirement-item">
+                        <strong>2️⃣ Le titre</strong>
+                        <span>Le nom de l'équipement<br>
+                        اسم الجهاز<br>
+                        <em>Exemples / أمثلة :</em> "Processeur Intel Core i7" • "Routeur WiFi TP-Link"</span>
+                    </div>
+                    
+                    <div class="requirement-item">
+                        <strong>3️⃣ Une description</strong>
+                        <span>Écrivez 3-4 lignes expliquant :<br>
+                        اكتب 3-4 أسطر تشرح :<br>
+                        • À quoi ça sert / ماذا يفعل هذه الجهاز<br>
+                        • Ses caractéristiques / خصائصه<br>
+                        • Son importance / أهميته</span>
+                    </div>
+                    
+                    <div class="requirement-item">
+                        <strong>4️⃣ La langue</strong>
+                        <span>Vous pouvez écrire en FRANÇAIS ou en ARABE (votre choix)<br>
+                        يمكنك الكتابة بالفرنسية أو العربية (من اختيارك)</span>
+                    </div>
+                    
+                    <div class="requirement-item">
+                        <strong>5️⃣ Votre signature</strong>
+                        <span>Signez avec votre prénom à la fin<br>
+                        وقع باسمك </span>
+                    </div>
+                </div>
+                    <div class="video-container">
+                        <video controls preload="metadata">
+                            <source src="Video_save_copy_img.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas les vidéos.
+                        </video>
+                    </div>
+
+            </div> -->
+
+                 <!-- MISSION PRINCIPALE -->
+<div class="exercise-section">
+            <h2>✏️ Phase 2 : Exercice Pratique (25 minutes)</h2>
+            
+            <div class="exercise-box">
+                <h3>📌 Mission pour chaque poste (14 ordinateurs) / المهمة لكل حاسوب (14 حاسوباً)</h3>
+                
+                <p style="margin: 1rem 0; font-size: 1.05rem;">
+                    <strong>Chaque élève doit / يجب على كل تلميذ:</strong>
+                </p>
+            
+            <p style="font-size: 1.05rem; margin-bottom: 1.5rem;">
+                Chaque élève doit trouver et envoyer <strong>3 images</strong> d'équipements informatiques via Softros LAN Messenger.
+            </p>
+            
+            <div class="task-list">
+                <div class="task-item">
+                    <div class="task-number">1</div>
+                    <div class="task-content">
+                        <strong>Image d'un composant INTERNE</strong>
+                        <p>CPU, RAM, Disque dur, Carte mère, Carte graphique, etc.</p>
+                    </div>
+                </div>
+                
+                <div class="task-item">
+                    <div class="task-number">2</div>
+                    <div class="task-content">
+                        <strong>Image d'un équipement RÉSEAU</strong>
+                        <p>Routeur, Switch, Modem, Câble réseau, Antenne WiFi, etc.</p>
+                    </div>
+                </div>
+                
+                <div class="task-item">
+                    <div class="task-number">3</div>
+                    <div class="task-content">
+                        <strong>Image au CHOIX</strong>
+                        <p>N'importe quel équipement interne ou réseau que vous trouvez intéressant.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+                    <div class="video-container">
+                        <video controls preload="metadata">
+                            <source src="Video_save_copy_img.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas les vidéos.
+                        </video>
+                    </div>
+        <!-- COMMENT FAIRE -->
+        <div class="section">
+            <h2>📋 Pour Chaque Image : À Envoyer</h2>
+            
+            <div class="task-list">
+                <div class="task-item">
+                    <div class="task-number">1</div>
+                    <div class="task-content">
+                        <strong>L'image</strong>
+                        <p>Une photo claire de l'équipement</p>
+                    </div>
+                </div>
+                
+                <div class="task-item">
+                    <div class="task-number">2</div>
+                    <div class="task-content">
+                        <strong>Le titre</strong>
+                        <p>Nom de l'équipement (ex: "Processeur Intel Core i7")</p>
+                    </div>
+                </div>
+                
+                <div class="task-item">
+                    <div class="task-number">3</div>
+                    <div class="task-content">
+                        <strong>Une courte description (3-4 lignes)</strong>
+                        <p>À quoi ça sert + ses caractéristiques principales + son importance</p>
+                    </div>
+                </div>
+                
+                <div class="task-item">
+                    <div class="task-number">4</div>
+                    <div class="task-content">
+                        <strong>Langue : Français ou Arabe</strong>
+                        <p>C'est à vous de choisir !</p>
+                    </div>
+                </div>
+                
+                <div class="task-item">
+                    <div class="task-number">5</div>
+                    <div class="task-content">
+                        <strong>Votre signature</strong>
+                        <p>Signez avec votre prénom à la fin du texte</p>
+                    </div>
+                </div>
+            </div>
+ 
+
+            <!-- EXEMPLE CONCRET -->
+            <div class="example-card">
+                <h4>📸 Exemple concret</h4>
+                
+                <div class="example-item">
+                    <strong>📷 Image :</strong><img src="https://i.imgur.com/1a0kn5z.png"  style="width :-webkit-fill-available;" alt="processeur">
+                </div>
+                
+                <!-- <div class="example-item">
+                    <p><strong>📝 Texte à envoyer :</strong></p>
+                    <p style="margin-top: 0.5rem; padding: 1rem; background: #fff9c4; border-radius: 4px; font-family: 'Courier New', monospace; border-left: 3px solid #fbc02d;">
+                        <strong>Processeur (CPU) Intel Core i9-12900K</strong><br><br>
+                        Le processeur est le cerveau de l'ordinateur. Il exécute tous les calculs et les instructions des logiciels. Plus le processeur est puissant, plus l'ordinateur peut traiter d'informations rapidement. C'est le composant le plus important pour la vitesse de votre machine.<br><br>
+                        <strong>— Fatima</strong>
+                    </p>
+                </div> -->
+            
+            </div>
+
+
+        </div>
+
+
+        <!-- RÉSUMÉ -->
+        <div class="summary-box">
+            <h3>📌 Résumé - À retenir</h3>
+            
+            <div style="background: white; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 4px solid #6a1b9a;">
+                <h4 style="color: #6a1b9a; margin-top: 0;">💬 La messagerie instantanée en réseau local</h4>
+                <p style="margin-top: 0.5rem;">C'est une méthode qui permet d'<strong>envoyer et recevoir des messages instantanément</strong> sans Internet, uniquement via le réseau de votre classe.</p>
+                <p>Il existe plusieurs logiciels qui assurent cette fonctionnalité.</p>
+            </div>
+            
+            <div style="background: white; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <h4 style="color: #0b76ef; margin-top: 0;">📡 Autres logiciels de messagerie LAN</h4>
+                
+                <div style="margin-top: 1rem;">
+                    <p style="margin-bottom: 0.8rem; padding-bottom: 0.8rem; border-bottom: 1px solid #e0e0e0;">
+                        <strong style="color: #0b76ef;">💬 LAN Messenger</strong><br>
+                        <span style="color: #666;">Application de chat pour la communication dans un réseau local avec une variété de fonctionnalités pratiques.</span>
+                    </p>
+                    
+                    <p style="margin-bottom: 0.8rem; padding-bottom: 0.8rem; border-bottom: 1px solid #e0e0e0;">
+                        <strong style="color: #0b76ef;">💬 Softros LAN Messenger</strong><br>
+                        <span style="color: #666;">Solution professionnelle de messagerie instantanée pour réseaux locaux d'entreprise. (Celui que nous utilisons)</span>
+                    </p>
+                    
+                    <p style="margin-bottom: 0;">
+                        <strong style="color: #0b76ef;">💬 BeeBEEP</strong><br>
+                        <span style="color: #666;">Logiciel gratuit et open source pour la messagerie sécurisée en réseau local.</span>
+                    </p>
+                </div>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #2196f3;">
+                <h4 style="color: #1565c0; margin-top: 0;">✨ Avantages du partage en réseau local</h4>
+                
+                <ul style="list-style: none; margin-top: 1rem;">
+                    <li style="padding: 0.6rem 0; border-bottom: 1px solid rgba(0,0,0,0.1);">
+                        <span style="font-size: 1.3rem;">⚡</span> <strong>Rapidité</strong> - Transfert rapide des fichiers et messages
+                    </li>
+                    <li style="padding: 0.6rem 0; border-bottom: 1px solid rgba(0,0,0,0.1);">
+                        <span style="font-size: 1.3rem;">🤝</span> <strong>Collaboration</strong> - Travail en équipe facilité et communicat
+                    </li>
+                    <li style="padding: 0.6rem 0; border-bottom: 1px solid rgba(0,0,0,0.1);">
+                        <span style="font-size: 1.3rem;">💾</span> <strong>Économie</strong> - Partage de ressources (imprimantes, stockage)
+                    </li>
+                    <li style="padding: 0.6rem 0; border-bottom: 1px solid rgba(0,0,0,0.1);">
+                        <span style="font-size: 1.3rem;">🔄</span> <strong>Synchronisation</strong> - Accès aux données à jour
+                    </li>
+                    <li style="padding: 0.6rem 0;">
+                        <span style="font-size: 1.3rem;">💬</span> <strong>Communication</strong> - Messagerie instantanée en temps réel
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="time-badge" style="text-align: center;">⏱️ Temps total : 35 minutes (10 min découverte + 25 min exercice)</div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-content">
+        <strong>© 2025-2026 Tous droits réservés</strong><br>
+        Académie Régionale de l'Éducation et de la Formation – Région Souss Massa<br>
+        Direction Provinciale Inzegane Aït Melloul<br>
+        Collège Othmane Ibn Affane
+      </div>
+      <div class="footer-author">
+        Conception et réalisation : <strong>Abdellah TAHTOH</strong><br>
+        Fait avec <span class="footer-heart">❤</span> au service de l'éducation numérique
+      </div>
+    </div>
+</body>
+</html>

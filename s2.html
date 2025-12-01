@@ -515,6 +515,228 @@
         .info-box strong {
             color: #3f51b5;
         }
+
+          .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .summary-box {
+            background: #f3e5f5;
+            border: 2px solid #9c27b0;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+        
+        .summary-box h3 {
+            color: #6a1b9a;
+            margin-top: 0;
+        }
+        
+        .quiz-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #667eea;
+        }
+
+        .quiz-section h2 {
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .question-container {
+            display: none;
+        }
+        
+        .question-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .question-number {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .question-text {
+            font-size: 18px;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f9f9f9;
+        }
+        
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .option input[type="radio"] {
+            margin-right: 12px;
+        }
+        
+        .option label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .option.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: space-between;
+        }
+        
+        button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-prev {
+            background: #f0f0f0;
+            color: #333;
+        }
+        
+        .btn-prev:hover {
+            background: #e0e0e0;
+        }
+        
+        .btn-next {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            flex-grow: 1;
+        }
+        
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .results {
+            display: none;
+        }
+        
+        .results.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+            text-align: center;
+        }
+        
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .score-circle.excellent {
+            background: linear-gradient(135deg, #4caf50, #45a049);
+        }
+        
+        .score-circle.good {
+            background: linear-gradient(135deg, #2196f3, #1976d2);
+        }
+        
+        .score-circle.average {
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+        }
+        
+        .score-circle.poor {
+            background: linear-gradient(135deg, #f44336, #da190b);
+        }
+        
+        .result-message {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .result-detail {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .btn-restart {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 40px;
+            margin-top: 20px;
+        }
+        
+        .btn-restart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+
+        
     </style>
 </head>
 <body>
@@ -556,104 +778,6 @@
                 <strong>💡 Info :</strong> Vous avez 10 minutes pour explorer librement. N'hésitez pas à cliquer partout pour comprendre comment ça marche !
             </div>
         </div>
-
-        <!-- EXERCICE PRATIQUE -->
-        <!-- <div class="exercise-section">
-            <h2>✏️ Phase 2 : Exercice Pratique (25 minutes)</h2>
-            
-            <div class="exercise-box">
-                <h3>📌 Mission pour chaque poste (14 ordinateurs) / المهمة لكل حاسوب (14 حاسوباً)</h3>
-                
-                <p style="margin: 1rem 0; font-size: 1.05rem;">
-                    <strong>Chaque élève doit / يجب على كل تلميذ:</strong>
-                </p>
-                
-                <div class="what-todo">
-                    <h4>📋 Tâche à accomplir / المهمة المطلوبة</h4>
-                    
-                    <div class="requirement-list">
-                        <div class="requirement-item">
-                            <strong>1️⃣ Trouver 3 images</strong>
-                            <span>Cherchez 3 images différentes sur Google Images<br>
-                            ابحث عن 3 صور مختلفة على صور Google</span>
-                        </div>
-                        
-                        <div class="requirement-item">
-                            <strong>2️⃣ Composant interne (1 image)</strong>
-                            <span>Choisissez 1 image d'un composant INTERNE de l'ordinateur<br>
-                            اختر صورة واحدة من مكونات الحاسوب الداخلية<br>
-                            <em style="color: #0b76ef;">Exemples / أمثلة :</em> CPU • RAM • Disque dur • Carte mère • Carte graphique</span>
-                        </div>
-                        
-                        <div class="requirement-item">
-                            <strong>3️⃣ Équipement réseau (1 image)</strong>
-                            <span>Choisissez 1 image d'un équipement RÉSEAU<br>
-                            اختر صورة واحدة لاجهزة الشبكة<br>
-                            <em style="color: #0b76ef;">Exemples / أمثلة :</em> Routeur • Switch • Modem • Câble réseau • Antenne WiFi</span>
-                        </div>
-                        
-                        <div class="requirement-item">
-                            <strong>4️⃣ Équipement libre (1 image)</strong>
-                            <span>Choisissez 1 image d'un équipement de votre choix (interne ou réseau)<br>
-                            اختر صورة واحدة لأي جهاز أخر من اختيارك</span>
-                        </div>
-                        
-                        <div class="requirement-item">
-                            <strong>5️⃣ Télécharger et organiser</strong>
-                            <span>Mettez les 3 images dans 1 dossier sur votre bureau<br>
-                            ضع الصور الثلاث في مجلد واحد على سطح المكتب</span>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- CE QU'IL FAUT ENVOYER -->
-            <!-- <div class="exercise-box">
-                <h3>📤 Pour chaque image, vous devez envoyer / لكل صورة يجب أن ترسل :</h3>
-                
-                <div class="requirement-list">
-                    <div class="requirement-item">
-                        <strong>1️⃣ L'image</strong>
-                        <span>Une photo claire de l'équipement<br>
-                        صورة واضحة للجهاز</span>
-                    </div>
-                    
-                    <div class="requirement-item">
-                        <strong>2️⃣ Le titre</strong>
-                        <span>Le nom de l'équipement<br>
-                        اسم الجهاز<br>
-                        <em>Exemples / أمثلة :</em> "Processeur Intel Core i7" • "Routeur WiFi TP-Link"</span>
-                    </div>
-                    
-                    <div class="requirement-item">
-                        <strong>3️⃣ Une description</strong>
-                        <span>Écrivez 3-4 lignes expliquant :<br>
-                        اكتب 3-4 أسطر تشرح :<br>
-                        • À quoi ça sert / ماذا يفعل هذه الجهاز<br>
-                        • Ses caractéristiques / خصائصه<br>
-                        • Son importance / أهميته</span>
-                    </div>
-                    
-                    <div class="requirement-item">
-                        <strong>4️⃣ La langue</strong>
-                        <span>Vous pouvez écrire en FRANÇAIS ou en ARABE (votre choix)<br>
-                        يمكنك الكتابة بالفرنسية أو العربية (من اختيارك)</span>
-                    </div>
-                    
-                    <div class="requirement-item">
-                        <strong>5️⃣ Votre signature</strong>
-                        <span>Signez avec votre prénom à la fin<br>
-                        وقع باسمك </span>
-                    </div>
-                </div>
-                    <div class="video-container">
-                        <video controls preload="metadata">
-                            <source src="Video_save_copy_img.mp4" type="video/mp4">
-                            Votre navigateur ne supporte pas les vidéos.
-                        </video>
-                    </div>
-
-            </div> -->
 
                  <!-- MISSION PRINCIPALE -->
 <div class="exercise-section">
@@ -757,20 +881,10 @@
                     <strong>📷 Image :</strong><img src="https://i.imgur.com/1a0kn5z.png"  style="width :-webkit-fill-available;" alt="processeur">
                 </div>
                 
-                <!-- <div class="example-item">
-                    <p><strong>📝 Texte à envoyer :</strong></p>
-                    <p style="margin-top: 0.5rem; padding: 1rem; background: #fff9c4; border-radius: 4px; font-family: 'Courier New', monospace; border-left: 3px solid #fbc02d;">
-                        <strong>Processeur (CPU) Intel Core i9-12900K</strong><br><br>
-                        Le processeur est le cerveau de l'ordinateur. Il exécute tous les calculs et les instructions des logiciels. Plus le processeur est puissant, plus l'ordinateur peut traiter d'informations rapidement. C'est le composant le plus important pour la vitesse de votre machine.<br><br>
-                        <strong>— Fatima</strong>
-                    </p>
-                </div> -->
+
             
             </div>
-
-
-        </div>
-
+  
 
         <!-- RÉSUMÉ -->
         <div class="summary-box">
@@ -830,6 +944,207 @@
 
     </div>
 
+ <div class="container">
+        <header>
+            <h1>💬 Quiz - Messagerie Instantanée LAN</h1>
+            <p class="subtitle">Évaluation de fin de séance</p>
+        </header>
+
+        <div class="quiz-section">
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+
+            <div id="quiz-content">
+                <!-- Question 1 -->
+                <div class="question-container active">
+                    <div class="question-number">Question 1 / 6</div>
+                    <div class="question-bilingual">
+                        <div class="question-fr">Qu'est-ce que la messagerie instantanée en réseau local ?</div>
+                        <div class="question-ar">ما هي المراسلة الفورية في الشبكة المحلية؟</div>
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 0)">
+                            <label>
+                                <input type="radio" name="q1" value="a">
+                                <span>Un service Internet qui nécessite une connexion Wi-Fi<br>خدمة إنترنت تتطلب اتصال Wi-Fi</span>
+                            </label>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 1)">
+                            <label>
+                                <input type="radio" name="q1" value="b">
+                                <span>Une méthode pour envoyer et recevoir des messages instantanément sans Internet, uniquement via le réseau de la classe<br>طريقة لإرسال واستقبال الرسائل فوراً بدون إنترنت عبر شبكة الفصل فقط</span>
+                            </label>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 2)">
+                            <label>
+                                <input type="radio" name="q1" value="c">
+                                <span>Un logiciel pour télécharger des fichiers<br>برنامج لتحميل الملفات</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question-container">
+                    <div class="question-number">Question 2 / 6</div>
+                    <div class="question-bilingual">
+                        <div class="question-fr">Quel est le principal avantage de la messagerie LAN en classe sans Internet ?</div>
+                        <div class="question-ar">ما الميزة الرئيسية لمراسلة LAN في الفصل بدون إنترنت؟</div>
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 0)">
+                            <label>
+                                <input type="radio" name="q2" value="a">
+                                <span>Elle permet l'accès à Internet gratuit<br>تتيح الوصول إلى الإنترنت مجاناً</span>
+                            </label>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 1)">
+                            <label>
+                                <input type="radio" name="q2" value="b">
+                                <span>Elle fonctionne sur le réseau local sans dépendre d'une connexion Internet<br>تعمل على الشبكة المحلية دون الاعتماد على اتصال الإنترنت</span>
+                            </label>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 2)">
+                            <label>
+                                <input type="radio" name="q2" value="c">
+                                <span>Elle remplace les appels téléphoniques<br>تحل محل المكالمات الهاتفية</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question-container">
+                    <div class="question-number">Question 3 / 6</div>
+                    <div class="question-bilingual">
+                        <div class="question-fr">Citez deux logiciels de messagerie LAN mentionnés dans le cours :</div>
+                        <div class="question-ar">اذكر برنامجي مراسلة LAN المذكورين في الدرس:</div>
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 0)">
+                            <label>
+                                <input type="radio" name="q3" value="a">
+                                <span>Softros LAN Messenger et BeeBEEP</span>
+                            </label>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 1)">
+                            <label>
+                                <input type="radio" name="q3" value="b">
+                                <span>WhatsApp et Telegram</span>
+                            </label>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 2)">
+                            <label>
+                                <input type="radio" name="q3" value="c">
+                                <span>Facebook Messenger et Viberr</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question-container">
+                    <div class="question-number">Question 4 / 6</div>
+                    <div class="question-bilingual">
+                        <div class="question-fr">Que pouvez-vous faire avec la messagerie LAN (Softros) en classe ?</div>
+                        <div class="question-ar">ماذا يمكنك أن تفعل مع مراسلة LAN (Softros) في الفصل؟</div>
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 0)">
+                            <label>
+                                <input type="radio" name="q4" value="a">
+                                <span>Envoyer des messages et partager des fichiers instantanément avec les camarades<br>إرسال الرسائل ومشاركة الملفات فوراً مع الزملاء</span>
+                            </label>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 1)">
+                            <label>
+                                <input type="radio" name="q4" value="b">
+                                <span>Uniquement recevoir des messages<br>استقبال الرسائل فقط</span>
+                            </label>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 2)">
+                            <label>
+                                <input type="radio" name="q4" value="c">
+                                <span>Se connecter à Internet<br>الاتصال بالإنترنت</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question-container">
+                    <div class="question-number">Question 5 / 6</div>
+                    <div class="question-bilingual">
+                        <div class="question-fr">Quel avantage la messagerie LAN offre-t-elle par rapport à WhatsApp en classe sans Internet ?</div>
+                        <div class="question-ar">ما الميزة التي توفرها مراسلة LAN مقارنة بـ WhatsApp في الفصل بدون إنترنت؟</div>
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 0)">
+                            <label>
+                                <input type="radio" name="q5" value="a">
+                                <span>Elle facilite la communication instantanée sans dépendre d'Internet<br>تسهل التواصل الفوري بدون الاعتماد على الإنترنت</span>
+                            </label>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 1)">
+                            <label>
+                                <input type="radio" name="q5" value="b">
+                                <span>Elle coûte plus cher<br>تكلفتها أعلى</span>
+                            </label>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 2)">
+                            <label>
+                                <input type="radio" name="q5" value="c">
+                                <span>Elle nécessite un numéro de téléphone<br>تتطلب رقم هاتف</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="question-container">
+                    <div class="question-number">Question 6 / 6</div>
+                    <div class="question-bilingual">
+                        <div class="question-fr">BeeBEEP est un logiciel de messagerie LAN qui est :</div>
+                        <div class="question-ar">BeeBEEP هو برنامج مراسلة LAN يكون:</div>
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 0)">
+                            <label>
+                                <input type="radio" name="q6" value="a">
+                                <span>Payant et propriétaire<br>مدفوع وحصري</span>
+                            </label>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 1)">
+                            <label>
+                                <input type="radio" name="q6" value="b">
+                                <span>Gratuit et open source<br>مجاني ومفتوح المصدر</span>
+                            </label>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 2)">
+                            <label>
+                                <input type="radio" name="q6" value="c">
+                                <span>Uniquement disponible sur téléphone<br>متاح على الهاتف فقط</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="results-section" class="results">
+                <div class="score-circle excellent" id="score-circle">6/6</div>
+                <div class="result-message" id="result-message">Excellent ! 🎉</div>
+                <div class="result-detail" id="result-detail">Vous maîtrisez parfaitement la messagerie instantanée LAN !</div>
+                <button class="btn-restart" onclick="restartQuiz()">🔄 Recommencer le quiz</button>
+            </div>
+
+            <div class="buttons">
+                <button class="btn-prev" id="btn-prev" onclick="prevQuestion()" style="display: none;">← Précédent</button>
+                <button class="btn-next" id="btn-next" onclick="nextQuestion()">Suivant →</button>
+            </div>
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <div class="footer">
       <div class="footer-content">
@@ -843,5 +1158,107 @@
         Fait avec <span class="footer-heart">❤</span> au service de l'éducation numérique
       </div>
     </div>
+
+<script>
+        let currentQuestion = 0;
+        const totalQuestions = 6;
+        const answers = ['b', 'b', 'a', 'a', 'a', 'b'];
+        let userAnswers = new Array(totalQuestions).fill(null);
+
+        function selectOption(element) {
+            const options = element.parentElement.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            const radio = element.querySelector('input[type="radio"]');
+            userAnswers[currentQuestion] = radio.value;
+            
+            document.getElementById('btn-next').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (userAnswers[currentQuestion] === null) {
+                alert('Veuillez sélectionner une réponse !');
+                return;
+            }
+
+            if (currentQuestion < totalQuestions - 1) {
+                currentQuestion++;
+                updateDisplay();
+            } else {
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                updateDisplay();
+            }
+        }
+
+        function updateDisplay() {
+            document.querySelectorAll('.question-container').forEach((q, i) => {
+                q.classList.toggle('active', i === currentQuestion);
+                q.style.display = (i === currentQuestion) ? 'block' : 'none';
+            });
+
+            const progress = ((currentQuestion + 1) / totalQuestions) * 100;
+            document.querySelector('.progress-fill').style.width = progress + '%';
+
+            document.getElementById('btn-prev').style.display = currentQuestion > 0 ? 'block' : 'none';
+            document.getElementById('btn-next').textContent = currentQuestion === totalQuestions - 1 ? 'Terminer ✓' : 'Suivant →';
+
+            const selectedOption = document.querySelector(`input[name="q${currentQuestion + 1}"]:checked`);
+            document.getElementById('btn-next').disabled = !selectedOption;
+        }
+
+        function showResults() {
+            let score = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === answers[index]) score++;
+            });
+
+            const percentage = Math.round((score / totalQuestions) * 100);
+            const scoreCircle = document.getElementById('score-circle');
+            const resultMessage = document.getElementById('result-message');
+            const resultDetail = document.getElementById('result-detail');
+
+            scoreCircle.textContent = `${score}/${totalQuestions}`;
+
+            if (percentage === 100) {
+                scoreCircle.className = 'score-circle excellent';
+                resultMessage.textContent = 'Excellent ! 🎉';
+                resultDetail.textContent = 'Vous maîtrisez parfaitement la messagerie instantanée LAN !';
+            } else if (percentage >= 80) {
+                scoreCircle.className = 'score-circle good';
+                resultMessage.textContent = 'Très bien ! 👍';
+                resultDetail.textContent = 'Vous avez une très bonne compréhension de la messagerie LAN.';
+            } else if (percentage >= 60) {
+                scoreCircle.className = 'score-circle average';
+                resultMessage.textContent = 'Correct 📚';
+                resultDetail.textContent = 'Vous comprenez les concepts clés. Relisez pour consolider vos connaissances.';
+            } else {
+                scoreCircle.className = 'score-circle poor';
+                resultMessage.textContent = 'À revoir ! 💪';
+                resultDetail.textContent = 'Relisez attentivement le cours sur la messagerie LAN.';
+            }
+
+            document.getElementById('quiz-content').style.display = 'none';
+            document.getElementById('results-section').classList.add('show');
+            document.querySelector('.buttons').style.display = 'none';
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            userAnswers = new Array(totalQuestions).fill(null);
+            document.getElementById('quiz-content').style.display = 'block';
+            document.getElementById('results-section').classList.remove('show');
+            document.querySelector('.buttons').style.display = 'flex';
+            updateDisplay();
+        }
+
+        updateDisplay();
+    </script>
 </body>
 </html>
